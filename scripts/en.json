@@ -1,0 +1,81 @@
+{
+  "navbar": {
+    "homes": "Homes",
+    "experiences": "Experiences",
+    "services": "Services",
+    "signUp": "Sign up",
+    "login": "Log in",
+    "giftCards": "Gift cards",
+    "help": "Help Center",
+    "menu": "Menu",
+    "language": "Language",
+    "currency": "Currency",
+    "langAndCurrency": "Language & Currency",
+    "langAndCountry": "Language & Country",
+    "currentLang": "English"
+  },
+
+  "hero": {
+    "title": "Explore Mumbai Like Never Before",
+    "subtitle": "Book unique island tours and city experiences.",
+    "whereLabel": "Where",
+    "searchPlaceholder": "Search destinations",
+    "whenLabel": "when",
+    "addDates": "Add dates",
+    "whoLabel": "WHO",
+    "addGuests": "Add guests"
+  },
+
+  "home": {
+    "popularTitle": "Popular Experiences",
+    "viewAll": "View all",
+    "bookNow": "Book Now",
+    "perPerson": "per person",
+    "featured": "Featured Tours"
+  },
+
+  "services": {
+    "pageTitle": "Our Services",
+    "subtitle": "Discover the best Mumbai has to offer",
+    "bookNow": "Book Now",
+    "duration": "Duration",
+    "includes": "Includes"
+  },
+
+  "experiences": {
+    "pageTitle": "Experiences",
+    "subtitle": "Unique tours and activities in Mumbai",
+    "bookNow": "Book Now"
+  },
+
+  "experiencesPage": {
+    "title": "Popular experiences in Mumbai"
+  },
+
+  "contact": {
+    "pageTitle": "Contact Us",
+    "name": "Your Name",
+    "email": "Email Address",
+    "message": "Your Message",
+    "send": "Send Message"
+  },
+
+  "footer": {
+    "tagline": "Your gateway to Mumbai's hidden gems",
+    "contact": "Contact Us",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All rights reserved"
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "close": "Close",
+    "learnMore": "Learn More",
+    "tryAgain": "Try Again",
+    "from": "From",
+    "perGuest": "/ guest",
+    "popular": "Popular"
+  }
+}
