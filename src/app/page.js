@@ -1,4 +1,11 @@
-import { redirect } from "next/navigation";
+import Navbar from "../../component/templates/Navbar/Navbar";
+import HomePage from "../../component/templates/HomePage/HomePage";
+
 export default function Page() {
-  redirect("/home");
+  return (
+    <>
+      <Navbar />
+      <HomePage />
+    </>
+  );
 }
