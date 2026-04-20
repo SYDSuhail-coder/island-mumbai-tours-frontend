@@ -5,9 +5,10 @@ import HeroSection from "../HeroSection/HeroSection";
 import Stats from "../Stats/Stats";
 import ToursSection from "../ToursSection/ToursSection";
 import WhyChooseUs from "../WhyChooseUs/WhyChooseUs";
-import BookingSection from "../BookingSection/BookingSection";
 import Testimonials from "../Testimonials/Testimonials";
 import Footer from "../Footer/Footer";
+import MumbaiWalkingTour from "../MumbaiWalkingTour/MumbaiWalkingTour";
+import MumbaiPrivateTour from "../MumbaiPrivateTour/MumbaiPrivateTour";
 
 const HomePage = () => {
   const bookingRef = useRef(null);
@@ -22,8 +23,9 @@ const HomePage = () => {
       <HeroSection />
       <Stats />
       <ToursSection onSelectTour={handleSelectTour} />
+      <MumbaiWalkingTour/>
+      <MumbaiPrivateTour/>
       <WhyChooseUs />
-      <BookingSection ref={bookingRef} />
       <Testimonials />
       <Footer />
     </Box>

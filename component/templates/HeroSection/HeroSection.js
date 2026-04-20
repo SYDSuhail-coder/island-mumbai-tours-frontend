@@ -68,7 +68,7 @@ const HeroSection = () => {
               "&:hover": { background: "#f0a500", transform: "scale(1.04)" },
               transition: "all 0.2s"
             }}>
-            Book a Tour
+            Book Now
           </Button>
           <Button onClick={() => scrollTo("tours")}
             sx={{

@@ -11,98 +11,9 @@ import {
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
 const tours = [
   {
     id: 1,
-    title: "Elephanta Island Tour",
-    image: "/image4.webp",
-    bg: "linear-gradient(135deg,#0a5c7a,#1a8aad)",
-    badge: "Bestseller", badgeColor: "#c9860a",
-    duration: "6 hrs", transport: "Ferry included", group: "Group",
-    desc: "UNESCO World Heritage caves, ancient Shiva sculptures & stunning sea views.",
-    price: 999,
-  },
-  {
-    id: 2,
-    title: "Alibaug Beach Tour",
-    emoji: "🏖️",
-    bg: "linear-gradient(135deg,#8B4513,#c9860a)",
-    badge: "Popular", badgeColor: "#c9860a",
-    duration: "Full Day", transport: "Ferry + Bus", group: "All Ages",
-    desc: "Pristine beaches, Kulaba Fort, local seafood & sunset.",
-    price: 1499,
-  },
-  {
-    id: 3,
-    title: "Mandwa Coastal Getaway",
-    emoji: "🌊",
-    bg: "linear-gradient(135deg,#116655,#1a9a7a)",
-    duration: "5 hrs", transport: "Ferry", group: "Couples",
-    desc: "Peaceful coastal village & fresh seafood.",
-    price: 799,
-  },
-  {
-    id: 4,
-    title: "Sunset Harbour Cruise",
-    emoji: "🌅",
-    bg: "linear-gradient(135deg,#4a1c6e,#7a3db8)",
-    badge: "New", badgeColor: "#c9860a",
-    duration: "2 hrs", transport: "Private Boat", group: "Small Group",
-    desc: "Gateway of India sunset view from sea.",
-    price: 1199,
-  },
-  {
-    id: 5,
-    title: "Dharavi Slum Tour",
-    image: "/image4.webp",
-    bg: "linear-gradient(135deg,#0a5c7a,#1a8aad)",
-    badge: "Bestseller", badgeColor: "#c9860a",
-    duration: "6 hrs", transport: "Ferry included", group: "Group",
-    desc: "UNESCO World Heritage caves, ancient Shiva sculptures & stunning sea views.",
-    price: 999,
-  },
-  {
-    id: 6,
-    title: "Mumbai Heritage Tour",
-    emoji: "🏖️",
-    bg: "linear-gradient(135deg,#8B4513,#c9860a)",
-    badge: "Popular", badgeColor: "#c9860a",
-    duration: "Full Day", transport: "Ferry + Bus", group: "All Ages",
-    desc: "Pristine beaches, Kulaba Fort, local seafood & sunset.",
-    price: 1499,
-  },
-  {
-    id: 7,
-    title: "Mumbai Street Food Tour",
-    emoji: "🌊",
-    bg: "linear-gradient(135deg,#116655,#1a9a7a)",
-    duration: "5 hrs", transport: "Ferry", group: "Couples",
-    desc: "Peaceful coastal village & fresh seafood.",
-    price: 799,
-  },
-  {
-    id: 8,
-    title: "Mumbai Dhobi Ghat Tour",
-    emoji: "🌅",
-    bg: "linear-gradient(135deg,#4a1c6e,#7a3db8)",
-    badge: "New", badgeColor: "#c9860a",
-    duration: "2 hrs", transport: "Private Boat", group: "Small Group",
-    desc: "Gateway of India sunset view from sea.",
-    price: 1199,
-  },
-  {
-    id: 9,
-    title: "Mumbai Dabbawalla Tour",
-    emoji: "🌅",
-    bg: "linear-gradient(135deg,#4a1c6e,#7a3db8)",
-    badge: "New", badgeColor: "#c9860a",
-    duration: "2 hrs", transport: "Private Boat", group: "Small Group",
-    desc: "Gateway of India sunset view from sea.",
-    price: 1199,
-  },
-  {
-    id: 10,
     title: "Elephanta Caves Tour",
     image: "/image4.webp",
     bg: "linear-gradient(135deg,#0a5c7a,#1a8aad)",
@@ -112,7 +23,7 @@ const tours = [
     price: 999,
   },
   {
-    id: 11,
+    id: 2,
     title: "Kanheri Caves & Golden Pagoda",
     emoji: "🏖️",
     bg: "linear-gradient(135deg,#8B4513,#c9860a)",
@@ -122,7 +33,7 @@ const tours = [
     price: 1499,
   },
   {
-    id: 12,
+    id: 3,
     title: "Mumbai Bollywood Tour",
     emoji: "🌊",
     bg: "linear-gradient(135deg,#116655,#1a9a7a)",
@@ -131,7 +42,7 @@ const tours = [
     price: 799,
   },
   {
-    id: 13,
+    id: 4,
     title: "Mumbai Night Tour",
     emoji: "🌅",
     bg: "linear-gradient(135deg,#4a1c6e,#7a3db8)",
@@ -141,7 +52,7 @@ const tours = [
     price: 1199,
   },
   {
-    id: 14,
+    id: 5,
     title: "Mumbai Dawn Tour",
     emoji: "🌅",
     bg: "linear-gradient(135deg,#4a1c6e,#7a3db8)",
@@ -151,7 +62,7 @@ const tours = [
     price: 1199,
   },
   {
-    id: 15,
+    id: 6,
     title: "Mumbai Shore Excursion Tour",
     emoji: "🌅",
     bg: "linear-gradient(135deg,#4a1c6e,#7a3db8)",
@@ -161,7 +72,7 @@ const tours = [
     price: 1199,
   },
   {
-    id: 16,
+    id: 7,
     title: "Mumbai Sightseeing Tour",
     emoji: "🌅",
     bg: "linear-gradient(135deg,#4a1c6e,#7a3db8)",
@@ -171,7 +82,7 @@ const tours = [
     price: 1199,
   },
   {
-    id: 17,
+    id: 8,
     title: "Full Day Sightseeing Mumbai Tour",
     emoji: "🌅",
     bg: "linear-gradient(135deg,#4a1c6e,#7a3db8)",
@@ -182,7 +93,7 @@ const tours = [
   },
 ];
 
-const ToursSection = ({ onSelectTour }) => {
+const MumbaiPrivateTour = ({ onSelectTour }) => {
   const scrollRef = useRef(null);
 
   const scrollLeft = () => {
@@ -194,7 +105,7 @@ const ToursSection = ({ onSelectTour }) => {
   };
 
   return (
-    <Box sx={{ py: 6, background: "#fdf6ec", mt: -3 }}>
+    <Box sx={{ py: 6, background: "#fdf6ec", mt: -6 }}>
       <Container maxWidth="lg">
 
         <Typography sx={{
@@ -203,7 +114,7 @@ const ToursSection = ({ onSelectTour }) => {
           fontWeight: 700,
           mb: 3
         }}>
-          Popular Island Tours
+          Mumbai Private Tour
         </Typography>
 
         <Box sx={{ position: "relative" }}>
@@ -361,4 +272,4 @@ const ToursSection = ({ onSelectTour }) => {
   );
 };
 
-export default ToursSection;
+export default MumbaiPrivateTour;

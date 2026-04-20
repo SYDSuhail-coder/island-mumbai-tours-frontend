@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 const tours = [
   "Elephanta Island Tour — ₹999",
@@ -60,6 +62,8 @@ const BookingSection = forwardRef((props, ref) => {
   };
 
   return (
+    <>
+    <Navbar/>
     <Box id="book-now" sx={{ py: 6, px: { xs: 2, md: 4 }, background: "#fdf6ec" }}>
       <Container maxWidth="sm">
         <Typography sx={{ fontSize: 11, letterSpacing: 3, color: "#1a8aad", mb: 1 }}>
@@ -234,6 +238,8 @@ const BookingSection = forwardRef((props, ref) => {
         </Box>
       </Container>
     </Box>
+    <Footer/>
+    </>
   );
 });
 
