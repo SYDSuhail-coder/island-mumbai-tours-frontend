@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import {
   Box,
   Typography,
@@ -184,13 +184,55 @@ const tours = [
 
 const ToursSection = ({ onSelectTour }) => {
   const scrollRef = useRef(null);
+  const [activeDot, setActiveDot] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 600);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // On mobile: 2 cards visible at once → group into pages of 2
+  // On desktop: arrows scroll freely, dots not shown
+  const cardsPerPage = 2;
+  const totalDots = Math.ceil(tours.length / cardsPerPage);
 
   const scrollLeft = () => {
-    scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
+  };
+
+  // Update active dot on scroll (mobile only)
+  const handleScroll = useCallback(() => {
+    if (!scrollRef.current) return;
+    const el = scrollRef.current;
+    const cardWidth = el.scrollWidth / tours.length;
+    const pageWidth = cardWidth * cardsPerPage;
+    const idx = Math.round(el.scrollLeft / pageWidth);
+    setActiveDot(Math.min(idx, totalDots - 1));
+  }, [totalDots]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  // Click dot → scroll to that page
+  const goToPage = (pageIdx) => {
+    if (!scrollRef.current) return;
+    const el = scrollRef.current;
+    const cardWidth = el.scrollWidth / tours.length;
+    const pageWidth = cardWidth * cardsPerPage;
+    el.scrollTo({ left: pageIdx * pageWidth, behavior: "smooth" });
+    setActiveDot(pageIdx);
   };
 
   return (
@@ -210,6 +252,7 @@ const ToursSection = ({ onSelectTour }) => {
 
           {/* LEFT BUTTON */}
           <Button onClick={scrollLeft} sx={{
+            display: { xs: "none", sm: "flex" },
             position: "absolute",
             left: -10,
             top: "40%",
@@ -227,6 +270,7 @@ const ToursSection = ({ onSelectTour }) => {
 
           {/* RIGHT BUTTON */}
           <Button onClick={scrollRight} sx={{
+            display: { xs: "none", sm: "flex" },
             position: "absolute",
             right: -10,
             top: "40%",
@@ -260,9 +304,9 @@ const ToursSection = ({ onSelectTour }) => {
                 sx={{
                   flex: "0 0 auto",
                   width: {
-                    xs: "90%",   // 📱 mobile → 1 card
-                    sm: "48%",   // tablet → 2 cards
-                    md: "32%",   // 💻 laptop → 3 cards
+                    xs: "48%",
+                    sm: "48%",
+                    md: "23%",
                   },
                   scrollSnapAlign: "start",
                 }}
@@ -297,7 +341,6 @@ const ToursSection = ({ onSelectTour }) => {
                         {tour.emoji}
                       </Typography>
                     )}
-
                     {tour.badge && (
                       <Chip label={tour.badge} size="small" sx={{
                         position: "absolute",
@@ -352,6 +395,30 @@ const ToursSection = ({ onSelectTour }) => {
 
                 </Card>
               </Box>
+            ))}
+          </Box>
+
+          {/* DOTS — mobile only */}
+          <Box sx={{
+            display: { xs: "flex", sm: "none" },
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "6px",
+            mt: 2,
+          }}>
+            {Array.from({ length: totalDots }).map((_, i) => (
+              <Box
+                key={i}
+                onClick={() => goToPage(i)}
+                sx={{
+                  height: "10px",
+                  width: activeDot === i ? "28px" : "10px",
+                  borderRadius: "10px",
+                  background: activeDot === i ? "#c9860a" : "#b0b0b0",
+                  cursor: "pointer",
+                  transition: "width 0.35s cubic-bezier(.4,0,.2,1), background 0.35s",
+                }}
+              />
             ))}
           </Box>
 

@@ -1,6 +1,7 @@
 "use client"
 import { Box, Typography, Button, Container } from "@mui/material";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 const images = [
   "https://res.cloudinary.com/drjders4g/image/upload/v1777012345/getway4_ywewva.jpg",
   "https://res.cloudinary.com/drjders4g/image/upload/v1777013940/marineline1_1_gdv1xy.jpg",
@@ -11,6 +12,7 @@ const images = [
 ];
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+   const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -100,6 +102,7 @@ const HeroSection = () => {
         {/* BUTTONS */}
         <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap", mt: 3 }}>
           <Button onClick={() => scrollTo("book-now")}
+           onClick={() => router.push("/bookingSection")}
             sx={{
               background: "#c9860a", color: "#0d1b2a",
               borderRadius: "25px", px: 4, py: 1.5,
