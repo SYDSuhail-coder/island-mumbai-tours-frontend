@@ -215,6 +215,46 @@ const Navbar = () => {
               </ListItem>
             ))}
           </List>
+          <Box sx={{ px: 2, mt: 2, display: "flex", flexDirection: "column", gap: 1.5 }}>
+
+            {/* WhatsApp Button */}
+            <Button
+              onClick={() => window.open(`https://wa.me/${whatsappNumber}`, "_blank")}
+              startIcon={<WhatsAppIcon />}
+              sx={{
+                background: "#25D366",
+                color: "#fff",
+                borderRadius: "20px",
+                px: 2.5,
+                fontSize: 13,
+                fontWeight: 600,
+                textTransform: "none",
+                justifyContent: "center",
+                "&:hover": { background: "#1ebe5d" },
+              }}
+            >
+              WhatsApp Us
+            </Button>
+
+            {/* Book Now Button */}
+            <Button
+              onClick={() => { router.push("/bookingSection"); setDrawerOpen(false); }}
+              sx={{
+                background: "#c9860a",
+                color: "#0d1b2a",
+                borderRadius: "20px",
+                px: 2.5,
+                fontSize: 13,
+                fontWeight: 700,
+                textTransform: "none",
+                justifyContent: "center",
+                "&:hover": { background: "#f0a500" },
+              }}
+            >
+              Book Now
+            </Button>
+
+          </Box>
         </Box>
       </Drawer>
     </>

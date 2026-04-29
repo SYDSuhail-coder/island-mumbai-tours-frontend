@@ -117,7 +117,7 @@ const Contact = () => {
           display: "flex", mb: 1.5,
         }}>
           <IconButton
-            onClick={() => router.back()}
+           onClick={() => router.push("/")}
             sx={{
               color: "#D4A847",
               background: "rgba(13,27,42,0.85)",
