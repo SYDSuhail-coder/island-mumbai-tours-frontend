@@ -89,14 +89,13 @@ const Contact = () => {
     <>
       <Navbar />
       <Box sx={{
-        minHeight: "100vh",
         background: "#fdf6ec",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        pt: { xs: "88px", sm: "96px" },
-        pb: { xs: 6, sm: 8 },
+        mt: "64px",
+        py: { xs: 3, sm: 5 },
         px: { xs: 2, sm: 3 },
         position: "relative",
         overflow: "hidden",
@@ -109,27 +108,6 @@ const Contact = () => {
           background: "radial-gradient(circle,rgba(212,168,71,0.09) 0%,transparent 70%)",
           pointerEvents: "none",
         }} />
-
-        <Box sx={{
-          width: "100%", maxWidth: 480,
-          top: { xs: "88px", sm: 24 },
-          left: { xs: 16, sm: 24 },
-          display: "flex", mb: 1.5,
-        }}>
-          <IconButton
-           onClick={() => router.push("/")}
-            sx={{
-              color: "#D4A847",
-              background: "rgba(13,27,42,0.85)",
-              border: "1px solid rgba(212,168,71,0.25)",
-              width: 38, height: 38,
-              "&:hover": { background: "#D4A847", color: "#1a1200" },
-            }}
-          >
-            <ArrowBackIcon sx={{ fontSize: 18 }} />
-          </IconButton>
-        </Box>
-
         {/* ── Card ── */}
         <Box sx={{
           position: "relative", zIndex: 1,
