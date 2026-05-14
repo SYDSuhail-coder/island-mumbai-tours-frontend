@@ -123,18 +123,19 @@ const Contact = () => {
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.25, mb: 0.5 }}>
             <Box sx={{
               width: 32, height: 32, borderRadius: "8px",
-              background: "linear-gradient(135deg,#D4A847,#b88a2e)",
               display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
             }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="#1a1200" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 17l1-6h16l1 6" />
-                <path d="M12 3v8" />
-                <path d="M8 8l4-5 4 5" />
-                <path d="M1 21c2 0 4-1 6-1s4 1 6 1 4-1 6-1" />
-              </svg>
+               <img
+              src="https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777532408/LogoMIT_ds7wfz.png"
+              alt="logo"
+              style={{
+                height: 32,
+                cursor: "pointer"
+              }}
+              onClick={() => router.push("/")}
+            />
             </Box>
-            <Typography sx={{ fontSize: 10, color: "#D4A847", letterSpacing: "0.14em", fontWeight: 700 }}>
+            <Typography sx={{ fontSize: 15, color: "#f0a500", letterSpacing: "0.14em", fontWeight: 700 , fontFamily: "'Playfair Display', serif"}}>
               MUMBAI ISLAND TOURS
             </Typography>
           </Box>

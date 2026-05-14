@@ -51,7 +51,16 @@ const Navbar = () => {
           }}
         >
           {/* LOGO */}
-          <Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <img
+              src="https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777532408/LogoMIT_ds7wfz.png"
+              alt="logo"
+              style={{
+                height: 35,
+                cursor: "pointer"
+              }}
+              onClick={() => router.push("/")}
+            />
             <Typography
               sx={{
                 fontFamily: "'Playfair Display', serif",

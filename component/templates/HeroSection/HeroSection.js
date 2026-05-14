@@ -3,11 +3,11 @@ import { Box, Typography, Button, Container } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 const images = [
-  "https://res.cloudinary.com/drjders4g/image/upload/v1777012345/getway4_ywewva.jpg",
-  "https://res.cloudinary.com/drjders4g/image/upload/v1777013940/marineline1_1_gdv1xy.jpg",
-  "https://res.cloudinary.com/drjders4g/image/upload/v1777012320/getway5_mw13tx.jpg",
-  "https://res.cloudinary.com/drjders4g/image/upload/v1777015944/pexels-xharsh-6071476_hf1uhk.jpg",
- " https://res.cloudinary.com/drjders4g/image/upload/v1777015009/pexels-shuttersangam-33350001_paw5yo.jpg",
+  "https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777012345/getway4_ywewva.jpg",
+  "https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777013940/marineline1_1_gdv1xy.jpg",
+  "https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777012320/getway5_mw13tx.jpg",
+  "https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777015944/pexels-xharsh-6071476_hf1uhk.jpg",
+ " https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777015009/pexels-shuttersangam-33350001_paw5yo.jpg",
 
 ];
 const HeroSection = () => {

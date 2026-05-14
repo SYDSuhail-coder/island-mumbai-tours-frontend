@@ -204,7 +204,7 @@ const BookingSection = forwardRef((props, ref) => {
                   transition: "background 0.3s"
                 }}
               >
-                {submitted ? "✅ Booking Confirmed!" : "Confirm Booking & Pay →"}
+                {submitted ? " Booking Confirmed!" : "Confirm Booking & Pay →"}
               </Button>
             </Grid>
 
