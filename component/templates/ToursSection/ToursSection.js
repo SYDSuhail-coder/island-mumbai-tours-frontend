@@ -14,7 +14,7 @@ import {
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const cardsPerPage = 2;
-const ToursSection = ({ onSelectTour }) => {
+const ToursSection = () => {
   const scrollRef = useRef(null);
   const [activeDot, setActiveDot] = useState(0);
   const [tours, setTours] = useState([]);
