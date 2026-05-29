@@ -31,7 +31,7 @@ import {
   ChildCare,
 } from "@mui/icons-material";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 
@@ -57,6 +57,9 @@ const Tours = ({ slug }) => {
   const [tour, setTour] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // ✅ Map section ka ref
+  const mapRef = useRef(null);
 
   const [form, setForm] = useState({
     tourTitle: "",
@@ -102,7 +105,6 @@ const Tours = ({ slug }) => {
     };
   }, [slug]);
 
-  // Tour load hone par title / id form mein auto set
   useEffect(() => {
     if (!tour) return;
     setForm((prev) => ({
@@ -130,6 +132,11 @@ const Tours = ({ slug }) => {
   const mapUrl = (loc) =>
     `https://maps.google.com/maps?q=${encodeURIComponent(loc)}&output=embed&z=14`;
 
+  // ✅ Location chip click hone par map tak smooth scroll
+  const scrollToMap = () => {
+    mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -154,14 +161,6 @@ const Tours = ({ slug }) => {
     };
 
     try {
-      // Apni booking API yahan lagao, e.g.:
-      // const res = await fetch("/api/book-tour", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(bookingPayload),
-      // });
-      // if (!res.ok) throw new Error("Booking failed");
-      // console.log("Booking data:", bookingPayload);
       await new Promise((r) => setTimeout(r, 1500));
       setSubmitted(true);
     } catch {
@@ -171,7 +170,6 @@ const Tours = ({ slug }) => {
     }
   };
 
-  // ── Shared input sx (vertical alignment: OutlinedInput + Select + multiline) ─
   const inpSx = {
     "& .MuiOutlinedInput-root": {
       fontSize: 13,
@@ -258,16 +256,7 @@ const Tours = ({ slug }) => {
   if (error) {
     return (
       <Box sx={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", p: 2 }}>
-        <Box
-          sx={{
-            background: "#FEF2F2",
-            border: "1px solid #FECACA",
-            borderRadius: "14px",
-            p: "20px 28px",
-            color: "#991B1B",
-            fontSize: 14,
-          }}
-        >
+        <Box sx={{ background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: "14px", p: "20px 28px", color: "#991B1B", fontSize: 14 }}>
           ⚠️ {error}
         </Box>
       </Box>
@@ -277,17 +266,7 @@ const Tours = ({ slug }) => {
   if (!tour) {
     return (
       <Box sx={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", p: 2 }}>
-        <Box
-          sx={{
-            background: "#F9F8F5",
-            border: "1px solid #EBEBEB",
-            borderRadius: "14px",
-            p: "20px 28px",
-            color: "#52525B",
-            fontSize: 14,
-            textAlign: "center",
-          }}
-        >
+        <Box sx={{ background: "#F9F8F5", border: "1px solid #EBEBEB", borderRadius: "14px", p: "20px 28px", color: "#52525B", fontSize: 14, textAlign: "center" }}>
           Is slug ke liye tour nahi mila.
         </Box>
       </Box>
@@ -298,17 +277,8 @@ const Tours = ({ slug }) => {
     { icon: <AccessTime sx={{ fontSize: 16, color: "#6B7280" }} />, label: "Duration", val: tour.duration },
     { icon: <DirectionsCar sx={{ fontSize: 16, color: "#6B7280" }} />, label: "Transport", val: tour.transport },
     { icon: <Groups sx={{ fontSize: 16, color: "#6B7280" }} />, label: "Max Guests", val: `${tour.maxGuests} Guests` },
-    {
-      icon: <CurrencyRupee sx={{ fontSize: 16, color: "#6B7280" }} />,
-      label: "Price/person",
-      val: `₹${tour.pricePerPerson?.toLocaleString()}`,
-    },
-    {
-      icon: <CheckCircle sx={{ fontSize: 16, color: tour.freeCancellation ? "#1D9E75" : "#6B7280" }} />,
-      label: "Cancellation",
-      val: tour.freeCancellation ? "Free" : "No",
-      green: tour.freeCancellation,
-    },
+    { icon: <CurrencyRupee sx={{ fontSize: 16, color: "#6B7280" }} />, label: "Price/person", val: `₹${tour.pricePerPerson?.toLocaleString()}` },
+    { icon: <CheckCircle sx={{ fontSize: 16, color: tour.freeCancellation ? "#1D9E75" : "#6B7280" }} />, label: "Cancellation", val: tour.freeCancellation ? "Free" : "No", green: tour.freeCancellation },
     { icon: <LocationOn sx={{ fontSize: 16, color: "#6B7280" }} />, label: "Location", val: tour.location },
   ];
 
@@ -319,18 +289,7 @@ const Tours = ({ slug }) => {
     if (imgs.length === 1) {
       return (
         <Box sx={{ borderRadius: "12px", overflow: "hidden", height: { xs: 200, sm: 280 } }}>
-          <Box
-            component="img"
-            src={imgs[0]}
-            alt="tour-0"
-            sx={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              transition: "transform .35s",
-              "&:hover": { transform: "scale(1.04)" },
-            }}
-          />
+          <Box component="img" src={imgs[0]} alt="tour-0" sx={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .35s", "&:hover": { transform: "scale(1.04)" } }} />
         </Box>
       );
     }
@@ -340,18 +299,7 @@ const Tours = ({ slug }) => {
         <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
           {imgs.map((img, i) => (
             <Box key={i} sx={{ borderRadius: "12px", overflow: "hidden", aspectRatio: "4/3" }}>
-              <Box
-                component="img"
-                src={img}
-                alt={`tour-${i}`}
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  transition: "transform .35s",
-                  "&:hover": { transform: "scale(1.04)" },
-                }}
-              />
+              <Box component="img" src={img} alt={`tour-${i}`} sx={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .35s", "&:hover": { transform: "scale(1.04)" } }} />
             </Box>
           ))}
         </Box>
@@ -362,33 +310,11 @@ const Tours = ({ slug }) => {
       return (
         <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto auto", gap: "10px" }}>
           <Box sx={{ borderRadius: "12px", overflow: "hidden", gridRow: "1 / 3", aspectRatio: "3/4" }}>
-            <Box
-              component="img"
-              src={imgs[0]}
-              alt="tour-0"
-              sx={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                transition: "transform .35s",
-                "&:hover": { transform: "scale(1.04)" },
-              }}
-            />
+            <Box component="img" src={imgs[0]} alt="tour-0" sx={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .35s", "&:hover": { transform: "scale(1.04)" } }} />
           </Box>
           {imgs.slice(1).map((img, i) => (
             <Box key={i} sx={{ borderRadius: "12px", overflow: "hidden", aspectRatio: "16/9" }}>
-              <Box
-                component="img"
-                src={img}
-                alt={`tour-${i + 1}`}
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  transition: "transform .35s",
-                  "&:hover": { transform: "scale(1.04)" },
-                }}
-              />
+              <Box component="img" src={img} alt={`tour-${i + 1}`} sx={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .35s", "&:hover": { transform: "scale(1.04)" } }} />
             </Box>
           ))}
         </Box>
@@ -400,48 +326,16 @@ const Tours = ({ slug }) => {
         <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", mb: "10px" }}>
           {imgs.slice(0, 2).map((img, i) => (
             <Box key={i} sx={{ borderRadius: "12px", overflow: "hidden", aspectRatio: "16/10" }}>
-              <Box
-                component="img"
-                src={img}
-                alt={`tour-${i}`}
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  transition: "transform .35s",
-                  "&:hover": { transform: "scale(1.04)" },
-                }}
-              />
+              <Box component="img" src={img} alt={`tour-${i}`} sx={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .35s", "&:hover": { transform: "scale(1.04)" } }} />
             </Box>
           ))}
         </Box>
         <Box sx={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(imgs.length - 2, 3)}, 1fr)`, gap: "10px" }}>
           {imgs.slice(2, 5).map((img, i) => (
             <Box key={i} sx={{ borderRadius: "12px", overflow: "hidden", aspectRatio: "1/1", position: "relative" }}>
-              <Box
-                component="img"
-                src={img}
-                alt={`tour-${i + 2}`}
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  transition: "transform .35s",
-                  "&:hover": { transform: "scale(1.04)" },
-                }}
-              />
+              <Box component="img" src={img} alt={`tour-${i + 2}`} sx={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .35s", "&:hover": { transform: "scale(1.04)" } }} />
               {i === 2 && imgs.length > 5 && (
-                <Box
-                  sx={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "rgba(0,0,0,0.55)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: "12px",
-                  }}
-                >
+                <Box sx={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "12px" }}>
                   <Typography sx={{ color: "#fff", fontSize: 22, fontWeight: 700 }}>+{imgs.length - 5}</Typography>
                 </Box>
               )}
@@ -467,77 +361,100 @@ const Tours = ({ slug }) => {
       >
         <style>{`@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}`}</style>
         <Box sx={{ maxWidth: 1160, mx: "auto" }}>
-          <Grid container spacing={{ xs: 2, md: 3 }}>
+
+          {/* ✅ TITLE SECTION - full width, sabse upar, Grid ke bahar */}
+          <Box sx={{ mb: 2.5 }}>
+
+            {/* Title sabse pehle */}
+            <Typography
+              sx={{
+                fontSize: { xs: 24, sm: 30, md: 34 },
+                fontWeight: 800,
+                color: "#18181B",
+                lineHeight: 1.2,
+                mb: "12px",
+                letterSpacing: "-0.5px",
+              }}
+            >
+              {tour.title}
+            </Typography>
+
+            {/* ✅ Badge + Rating + Location — sab ek hi line mein */}
+            <Box sx={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
+
+              {/* Badge */}
+              {tour.badge && (
+                <Box
+                  sx={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    background: "#FFF3E0",
+                    color: "#854F0B",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: "5px 13px",
+                    borderRadius: "20px",
+                    border: "1px solid #EF9F27",
+                  }}
+                >
+                  <LocalOffer sx={{ fontSize: 13 }} /> {tour.badge}
+                </Box>
+              )}
+
+              {/* Rating chip */}
+              <Box
+                sx={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  padding: "6px 14px",
+                  borderRadius: "20px",
+                  border: "1px solid #F0D893",
+                  background: "#FFFDE7",
+                  color: "#795548",
+                }}
+              >
+                <Star sx={{ fontSize: 15 }} /> {tour.rating} · {tour.reviewsCount} Reviews
+              </Box>
+
+              {/* Location chip — click karo to map pe scroll ho */}
+              <Box
+                onClick={scrollToMap}
+                sx={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  padding: "6px 14px",
+                  borderRadius: "20px",
+                  border: "1px solid #A5D6A7",
+                  background: "#E8F5E9",
+                  color: "#2E7D32",
+                  cursor: "pointer",
+                  transition: "all .2s",
+                  "&:hover": {
+                    background: "#C8E6C9",
+                    borderColor: "#66BB6A",
+                    transform: "translateY(-1px)",
+                    boxShadow: "0 3px 10px rgba(46,125,50,0.2)",
+                  },
+                  "&:active": { transform: "translateY(0px)" },
+                }}
+              >
+                <LocationOn sx={{ fontSize: 15 }} /> {tour.location}
+              </Box>
+
+            </Box>
+          </Box>
+
+          {/* ✅ MAIN GRID — Images left, Payment right, side by side */}
+          <Grid container spacing={{ xs: 2, md: 3 }} sx={{ alignItems: "flex-start" }}>
             <Grid size={{ xs: 12, md: 8 }}>
               <Stack spacing={2}>
-                <Box>
-                  {tour.badge && (
-                    <Box
-                      sx={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "5px",
-                        background: "#FFF3E0",
-                        color: "#854F0B",
-                        fontSize: 11,
-                        fontWeight: 700,
-                        padding: "5px 13px",
-                        borderRadius: "20px",
-                        border: "1px solid #EF9F27",
-                        mb: "12px",
-                      }}
-                    >
-                      <LocalOffer sx={{ fontSize: 13 }} /> {tour.badge}
-                    </Box>
-                  )}
-                  <Typography
-                    sx={{
-                      fontSize: { xs: 24, sm: 30, md: 34 },
-                      fontWeight: 800,
-                      color: "#18181B",
-                      lineHeight: 1.2,
-                      mb: "14px",
-                      letterSpacing: "-0.5px",
-                    }}
-                  >
-                    {tour.title}
-                  </Typography>
-                  <Box sx={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                    <Box
-                      sx={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontSize: 13,
-                        fontWeight: 600,
-                        padding: "6px 14px",
-                        borderRadius: "20px",
-                        border: "1px solid #F0D893",
-                        background: "#FFFDE7",
-                        color: "#795548",
-                      }}
-                    >
-                      <Star sx={{ fontSize: 15 }} /> {tour.rating} · {tour.reviewsCount} Reviews
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontSize: 13,
-                        fontWeight: 600,
-                        padding: "6px 14px",
-                        borderRadius: "20px",
-                        border: "1px solid #A5D6A7",
-                        background: "#E8F5E9",
-                        color: "#2E7D32",
-                      }}
-                    >
-                      <LocationOn sx={{ fontSize: 15 }} /> {tour.location}
-                    </Box>
-                  </Box>
-                </Box>
-
                 {tour.images?.length > 0 && (
                   <Card sx={cardSx}>
                     <CardContent sx={{ p: "18px 20px !important" }}>
@@ -572,15 +489,7 @@ const Tours = ({ slug }) => {
                         >
                           <Box sx={{ display: "flex", alignItems: "center", gap: "6px", mb: "8px" }}>
                             {icon}
-                            <Typography
-                              sx={{
-                                fontSize: 11,
-                                fontWeight: 700,
-                                color: "#9B9590",
-                                textTransform: "uppercase",
-                                letterSpacing: "0.06em",
-                              }}
-                            >
+                            <Typography sx={{ fontSize: 11, fontWeight: 700, color: "#9B9590", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                               {label}
                             </Typography>
                           </Box>
@@ -593,7 +502,8 @@ const Tours = ({ slug }) => {
                   </CardContent>
                 </Card>
 
-                <Card sx={{ ...cardSx, overflow: "hidden" }}>
+                {/* ✅ ref yahan lagaya — is Card pe scroll hoga */}
+                <Card ref={mapRef} sx={{ ...cardSx, overflow: "hidden" }}>
                   <CardContent sx={{ p: "18px 20px !important" }}>
                     <Box sx={secLabelSx}>
                       <Map sx={{ fontSize: 14 }} /> Location Map
@@ -648,16 +558,7 @@ const Tours = ({ slug }) => {
                         <br />
                         Confirmation <strong>{form.email}</strong> par bheja jayega.
                       </Typography>
-                      <Box
-                        sx={{
-                          background: "#F9F8F5",
-                          border: "1px solid #EBEBEB",
-                          borderRadius: "12px",
-                          p: "14px 16px",
-                          textAlign: "left",
-                          mb: "16px",
-                        }}
-                      >
+                      <Box sx={{ background: "#F9F8F5", border: "1px solid #EBEBEB", borderRadius: "12px", p: "14px 16px", textAlign: "left", mb: "16px" }}>
                         {[
                           ["Tour", tour.title],
                           ["Date", form.date],
@@ -665,26 +566,12 @@ const Tours = ({ slug }) => {
                           ["Adults", `${form.guests}`],
                           ["Children", `${form.children}`],
                         ].map(([k, v]) => (
-                          <Box
-                            key={k}
-                            sx={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: "#71717A", mb: "8px" }}
-                          >
+                          <Box key={k} sx={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: "#71717A", mb: "8px" }}>
                             <span>{k}</span>
                             <span style={{ color: "#18181B", fontWeight: 600 }}>{v}</span>
                           </Box>
                         ))}
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            fontSize: 15,
-                            fontWeight: 800,
-                            color: "#0F6E56",
-                            pt: "10px",
-                            mt: "6px",
-                            borderTop: "1px solid #E4E4E7",
-                          }}
-                        >
+                        <Box sx={{ display: "flex", justifyContent: "space-between", fontSize: 15, fontWeight: 800, color: "#0F6E56", pt: "10px", mt: "6px", borderTop: "1px solid #E4E4E7" }}>
                           <span>Total Paid</span>
                           <span>₹{total.toLocaleString()}</span>
                         </Box>
@@ -734,16 +621,7 @@ const Tours = ({ slug }) => {
                         </Typography>
                       </Box>
 
-                      <Typography
-                        sx={{
-                          fontSize: 11,
-                          fontWeight: 700,
-                          color: "#52525B",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.07em",
-                          mb: "10px",
-                        }}
-                      >
+                      <Typography sx={{ fontSize: 11, fontWeight: 700, color: "#52525B", textTransform: "uppercase", letterSpacing: "0.07em", mb: "10px" }}>
                         👤 Your Details
                       </Typography>
 
@@ -756,35 +634,14 @@ const Tours = ({ slug }) => {
                           slotProps={{ input: { readOnly: true } }}
                           sx={{
                             ...inpSx,
-                            "& .MuiInputBase-input": {
-                              cursor: "default",
-                              color: "#18181B",
-                              fontWeight: 600,
-                            },
+                            "& .MuiInputBase-input": { cursor: "default", color: "#18181B", fontWeight: 600 },
                             "& .MuiOutlinedInput-root": { background: "#F0FBF7" },
                           }}
                         />
                         <input type="hidden" name="tourId" value={form.tourId || tour._id || tour.id || slug || ""} />
                         <TextField label="Full Name" name="name" value={form.name} onChange={handleChange} fullWidth required sx={inpSx} />
-                        <TextField
-                          label="Email Address"
-                          name="email"
-                          type="email"
-                          value={form.email}
-                          onChange={handleChange}
-                          fullWidth
-                          required
-                          sx={inpSx}
-                        />
-                        <TextField
-                          label="Phone Number (+91...)"
-                          name="phone"
-                          value={form.phone}
-                          onChange={handleChange}
-                          fullWidth
-                          required
-                          sx={inpSx}
-                        />
+                        <TextField label="Email Address" name="email" type="email" value={form.email} onChange={handleChange} fullWidth required sx={inpSx} />
+                        <TextField label="Phone Number (+91...)" name="phone" value={form.phone} onChange={handleChange} fullWidth required sx={inpSx} />
 
                         <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
                           <TextField
@@ -811,10 +668,7 @@ const Tours = ({ slug }) => {
                             fullWidth
                             required
                             label="Tour Date"
-                            slotProps={{
-                              inputLabel: { shrink: true },
-                              htmlInput: { min: new Date().toISOString().split("T")[0] },
-                            }}
+                            slotProps={{ inputLabel: { shrink: true }, htmlInput: { min: new Date().toISOString().split("T")[0] } }}
                             sx={inpSx}
                           />
                           <TextField
@@ -825,11 +679,7 @@ const Tours = ({ slug }) => {
                             onChange={handleChange}
                             fullWidth
                             required
-                            slotProps={{
-                              inputLabel: {
-                                shrink: true,
-                              },
-                            }}
+                            slotProps={{ inputLabel: { shrink: true } }}
                             sx={inpSx}
                           />
                         </Box>
@@ -868,36 +718,18 @@ const Tours = ({ slug }) => {
                           onChange={handleChange}
                           fullWidth
                           slotProps={{ inputLabel: { shrink: true } }}
-                          sx={{
-                            ...inpSx,
-                            "& .MuiInputBase-input": { padding: "12px 14px", resize: "none" },
-                          }}
+                          sx={{ ...inpSx, "& .MuiInputBase-input": { padding: "12px 14px", resize: "none" } }}
                         />
                       </Stack>
 
-                      <Box
-                        sx={{
-                          background: "#F9F8F5",
-                          border: "1px solid #EBEBEB",
-                          borderRadius: "12px",
-                          p: "14px 16px",
-                          mt: "16px",
-                          mb: "4px",
-                        }}
-                      >
+                      <Box sx={{ background: "#F9F8F5", border: "1px solid #EBEBEB", borderRadius: "12px", p: "14px 16px", mt: "16px", mb: "4px" }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: "#71717A", mb: "6px" }}>
-                          <span>
-                            ₹{tour.pricePerPerson?.toLocaleString()} × {form.guests}{" "}
-                            {Number(form.guests) === 1 ? "adult" : "adults"}
-                          </span>
+                          <span>₹{tour.pricePerPerson?.toLocaleString()} × {form.guests} {Number(form.guests) === 1 ? "adult" : "adults"}</span>
                           <span>₹{adultsTotal.toLocaleString()}</span>
                         </Box>
                         {Number(form.children) > 0 && (
                           <Box sx={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: "#71717A", mb: "6px" }}>
-                            <span>
-                              ₹{CHILD_PRICE} × {form.children}{" "}
-                              {Number(form.children) === 1 ? "child" : "children"}
-                            </span>
+                            <span>₹{CHILD_PRICE} × {form.children} {Number(form.children) === 1 ? "child" : "children"}</span>
                             <span>₹{childrenTotal.toLocaleString()}</span>
                           </Box>
                         )}
@@ -907,37 +739,13 @@ const Tours = ({ slug }) => {
                             <span>Included</span>
                           </Box>
                         )}
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            fontSize: 15,
-                            fontWeight: 800,
-                            color: "#0F6E56",
-                            pt: "10px",
-                            mt: "6px",
-                            borderTop: "1px solid #E4E4E7",
-                          }}
-                        >
+                        <Box sx={{ display: "flex", justifyContent: "space-between", fontSize: 15, fontWeight: 800, color: "#0F6E56", pt: "10px", mt: "6px", borderTop: "1px solid #E4E4E7" }}>
                           <span style={{ color: "#18181B" }}>Total</span>
                           <span>₹{total.toLocaleString()}</span>
                         </Box>
                       </Box>
 
-                      <Typography
-                        sx={{
-                          fontSize: 11,
-                          fontWeight: 700,
-                          color: "#52525B",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.07em",
-                          mt: "16px",
-                          mb: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "6px",
-                        }}
-                      >
+                      <Typography sx={{ fontSize: 11, fontWeight: 700, color: "#52525B", textTransform: "uppercase", letterSpacing: "0.07em", mt: "16px", mb: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
                         <CreditCard sx={{ fontSize: 14 }} /> Payment Method
                       </Typography>
 
@@ -968,11 +776,7 @@ const Tours = ({ slug }) => {
                               gap: "5px",
                               transition: "all .15s",
                               fontFamily: "inherit",
-                              "&:hover": {
-                                borderColor: "#1D9E75",
-                                color: "#085041",
-                                background: "#F0FBF7",
-                              },
+                              "&:hover": { borderColor: "#1D9E75", color: "#085041", background: "#F0FBF7" },
                             }}
                           >
                             {icon} {label}
@@ -1049,18 +853,8 @@ const Tours = ({ slug }) => {
                           required
                           sx={{ ...inpSx, mb: 1.5 }}
                         >
-                          {[
-                            "SBI",
-                            "HDFC Bank",
-                            "ICICI Bank",
-                            "Axis Bank",
-                            "Kotak Mahindra Bank",
-                            "Bank of Baroda",
-                            "Punjab National Bank",
-                          ].map((b) => (
-                            <MenuItem key={b} value={b}>
-                              {b}
-                            </MenuItem>
+                          {["SBI", "HDFC Bank", "ICICI Bank", "Axis Bank", "Kotak Mahindra Bank", "Bank of Baroda", "Punjab National Bank"].map((b) => (
+                            <MenuItem key={b} value={b}>{b}</MenuItem>
                           ))}
                         </TextField>
                       )}
@@ -1097,17 +891,7 @@ const Tours = ({ slug }) => {
                         {submitting ? "Processing..." : `Pay ₹${total.toLocaleString()} & Book Now`}
                       </Button>
 
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          gap: "5px",
-                          fontSize: 11,
-                          color: "#9B9590",
-                          mt: "12px",
-                        }}
-                      >
+                      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "5px", fontSize: 11, color: "#9B9590", mt: "12px" }}>
                         <Lock sx={{ fontSize: 13 }} /> Secure & encrypted payment
                       </Box>
                     </Box>

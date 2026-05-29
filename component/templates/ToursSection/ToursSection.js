@@ -13,7 +13,9 @@ import {
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+
 const cardsPerPage = 2;
+
 const ToursSection = () => {
   const scrollRef = useRef(null);
   const [activeDot, setActiveDot] = useState(0);
@@ -43,19 +45,16 @@ const ToursSection = () => {
 
   // TOTAL DOTS
   const totalDots = Math.ceil(tours.length / cardsPerPage);
+
   // SCROLL FUNCTIONS
   const scrollLeft = () => {
-    scrollRef.current?.scrollBy({
-      left: -300,
-      behavior: "smooth"
-    });
+    scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
   };
+
   const scrollRight = () => {
-    scrollRef.current?.scrollBy({
-      left: 300,
-      behavior: "smooth"
-    });
+    scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
   };
+
   const handleScroll = useCallback(() => {
     if (!scrollRef.current) return;
     const el = scrollRef.current;
@@ -68,44 +67,29 @@ const ToursSection = () => {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    el.addEventListener("scroll", handleScroll, {
-      passive: true
-    });
-    return () => {
-      el.removeEventListener("scroll", handleScroll);
-    };
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
   const goToPage = (pageIdx) => {
-
     if (!scrollRef.current) return;
-
     const el = scrollRef.current;
-
     const cardWidth = el.scrollWidth / tours.length;
-
     const pageWidth = cardWidth * cardsPerPage;
-
-    el.scrollTo({
-      left: pageIdx * pageWidth,
-      behavior: "smooth"
-    });
-
+    el.scrollTo({ left: pageIdx * pageWidth, behavior: "smooth" });
     setActiveDot(pageIdx);
   };
 
   return (
-
     <Box sx={{ py: 6, background: "#fdf6ec", pt: -3 }}>
-
       <Container maxWidth="lg">
-
-        <Typography sx={{
-          fontFamily: "'Playfair Display', serif",
-          fontSize: { xs: 24, md: 32 },
-          fontWeight: 700,
-          mb: 3
-        }}
+        <Typography
+          sx={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: { xs: 24, md: 32 },
+            fontWeight: 700,
+            mb: 3
+          }}
         >
           Popular Island Tours
         </Typography>
@@ -113,7 +97,6 @@ const ToursSection = () => {
         <Box sx={{ position: "relative" }}>
 
           {/* LEFT BUTTON */}
-
           <Button
             onClick={scrollLeft}
             sx={{
@@ -133,7 +116,6 @@ const ToursSection = () => {
           </Button>
 
           {/* RIGHT BUTTON */}
-
           <Button
             onClick={scrollRight}
             sx={{
@@ -153,7 +135,6 @@ const ToursSection = () => {
           </Button>
 
           {/* SCROLL AREA */}
-
           <Box
             ref={scrollRef}
             sx={{
@@ -161,49 +142,46 @@ const ToursSection = () => {
               gap: 2,
               overflowX: "auto",
               scrollSnapType: "x mandatory",
-              "&::-webkit-scrollbar": {
-                display: "none"
-              }
+              alignItems: "stretch",        // ✅ saare cards same height
+              "&::-webkit-scrollbar": { display: "none" }
             }}
           >
-
             {tours.map((tour) => (
-
               <Box
                 key={tour._id}
                 sx={{
                   flex: "0 0 auto",
                   width: { xs: "80%", sm: "48%", md: "23%" },
-                  scrollSnapAlign: "start"
+                  scrollSnapAlign: "start",
+                  display: "flex",           // ✅ card ko stretch karne ke liye
+                  alignItems: "stretch"      // ✅ card height equal rakho
                 }}
               >
-
                 <Card
                   sx={{
                     borderRadius: 3,
                     transition: "0.3s",
-
+                    width: "100%",           // ✅ full width lo
+                    display: "flex",         // ✅ image aur content column mein
+                    flexDirection: "column", // ✅ image upar, content neeche
                     "&:hover": {
                       transform: "translateY(-6px)",
                       boxShadow: "0 15px 35px rgba(0,0,0,0.15)"
                     }
                   }}
                 >
-
-                  {/* IMAGE */}
-
+                  {/* IMAGE - fixed height, content se affect nahi hogi */}
                   <Box
                     sx={{
-                      height: 180,
+                      height: 150,           // ✅ image height fixed
+                      flexShrink: 0,         // ✅ content zyada ho toh bhi image shrink nahi hogi
                       backgroundImage: `url(${tour.coverImage})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       position: "relative"
                     }}
                   >
-
                     {tour.badge && (
-
                       <Chip
                         label={tour.badge}
                         size="small"
@@ -217,98 +195,54 @@ const ToursSection = () => {
                         }}
                       />
                     )}
-
                   </Box>
 
                   {/* CONTENT */}
-
-                  <CardContent sx={{ p: 2 }}>
-
+                  <CardContent
+                    sx={{
+                      p: 2,
+                      flexGrow: 1,           // ✅ baaki space content le lega
+                      display: "flex",
+                      flexDirection: "column"
+                    }}
+                  >
                     <Typography fontWeight={700}>
                       {tour.title}
                     </Typography>
 
                     {/* RATING */}
-
                     <Typography sx={{ fontSize: 12 }}>
-
                       ⭐ {tour.rating} ({tour.reviewsCount})
-
                     </Typography>
 
                     {/* INFO */}
-
-                    <Typography
-                      sx={{
-                        fontSize: 12,
-                        color: "#777",
-                        mb: 1
-                      }}
-                    >
+                    <Typography sx={{ fontSize: 12, color: "#777", mb: 1 }}>
                       ⏱ {tour.duration} | 🚘 {tour.transport}
                     </Typography>
 
-                    <Typography
-                      sx={{
-                        fontSize: 11,
-                        mt: 1,
-                        minHeight: 40
-                      }}
-                    >
-
+                    <Typography sx={{ fontSize: 11, mt: 1, minHeight: 40 }}>
                       {tour.description?.slice(0, 70)}...
-
                     </Typography>
 
                     {/* FREE CANCEL */}
-
                     {tour.freeCancellation && (
-
-                      <Typography
-                        sx={{
-                          fontSize: 11,
-                          color: "green",
-                          mt: 1
-                        }}
-                      >
-
+                      <Typography sx={{ fontSize: 11, color: "green", mt: 1 }}>
                         ✔ Free cancellation
-
                       </Typography>
                     )}
 
-                    {/* PRICE */}
-
-                    <Box sx={{ mt: 1.5 }}>
-
-                      <Typography
-                        fontWeight={600}
-                        color="#0a5c7a"
-                      >
-
+                    {/* PRICE - bottom mein push karo */}
+                    <Box sx={{ mt: "auto", pt: 1.5 }}>
+                      <Typography fontWeight={600} color="#0a5c7a">
                         From ₹{tour.pricePerPerson}
-
-                        <span style={{ fontSize: 10 }}>
-                          {" "}per person
-                        </span>
-
+                        <span style={{ fontSize: 10 }}> per person</span>
                       </Typography>
 
                       {/* BUTTON */}
-
-                      <Box
-                        sx={{
-                          display: "flex",
-                          gap: 1,
-                          mt: 1
-                        }}
-                      >
-
+                      <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
                         <Button
                           fullWidth
-                          onClick={() =>
-                            router.push(`/tours/${tour.slug}`)
-                          }
+                          onClick={() => router.push(`/tours/${tour.slug}`)}
                           sx={{
                             background: "#0a5c7a",
                             color: "#fff",
@@ -317,23 +251,15 @@ const ToursSection = () => {
                         >
                           Book
                         </Button>
-
                       </Box>
-
                     </Box>
-
                   </CardContent>
-
                 </Card>
-
               </Box>
-
             ))}
-
           </Box>
 
           {/* DOTS */}
-
           <Box
             sx={{
               display: { xs: "flex", sm: "none" },
@@ -342,11 +268,7 @@ const ToursSection = () => {
               mt: 2
             }}
           >
-
-            {Array.from({
-              length: totalDots
-            }).map((_, i) => (
-
+            {Array.from({ length: totalDots }).map((_, i) => (
               <Box
                 key={i}
                 onClick={() => goToPage(i)}
@@ -354,22 +276,14 @@ const ToursSection = () => {
                   height: 8,
                   width: activeDot === i ? 24 : 8,
                   borderRadius: 10,
-                  background:
-                    activeDot === i
-                      ? "#c9860a"
-                      : "#ccc",
+                  background: activeDot === i ? "#c9860a" : "#ccc",
                   cursor: "pointer"
                 }}
               />
-
             ))}
-
           </Box>
-
         </Box>
-
       </Container>
-
     </Box>
   );
 };
