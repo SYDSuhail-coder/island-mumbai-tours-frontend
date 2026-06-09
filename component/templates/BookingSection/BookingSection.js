@@ -121,6 +121,7 @@ const BookingSection = forwardRef((props, ref) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          bookingType: selectedTour.bookingType,
           tour: form.tour,
           date: form.date,
           adults: form.adults,
