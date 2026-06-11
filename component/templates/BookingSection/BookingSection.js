@@ -47,16 +47,16 @@ const BookingSection = forwardRef((props, ref) => {
   });
 
   useEffect(() => {
-    fetch("api/booking-section")
+    fetch("/api/booking-section")
       .then((res) => res.json())
       .then((data) => {
-        setTours(data.result.data);
+        setTours(data.data || []);
       })
       .catch((err) => {
         console.error("Tours fetch error:", err);
       });
   }, []);
-
+  
   useImperativeHandle(ref, () => ({
     setTour: (tourName) => {
       const match = tours.find((tour) => tour.tourName === tourName);
