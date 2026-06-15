@@ -150,14 +150,28 @@ const Navbar = () => {
               Book Now
             </Button>
           </Box>
+          {/* MOBILE: WhatsApp + MENU ICON */}
+          <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center", gap: 1 }}>
+            <IconButton
+              onClick={() => window.open(`https://wa.me/${whatsappNumber}`, "_blank")}
+              sx={{
+                background: "#25D366",
+                color: "#fff",
+                width: 34,
+                height: 34,
+                "&:hover": { background: "#1ebe5d" }
+              }}
+            >
+              <WhatsAppIcon fontSize="small" />
+            </IconButton>
 
-          {/* MOBILE MENU ICON */}
-          <IconButton
-            sx={{ display: { xs: "flex", md: "none" }, color: "#fff" }}
-            onClick={() => setDrawerOpen(true)}
-          >
-            <MenuIcon />
-          </IconButton>
+            <IconButton
+              sx={{ color: "#fff" }}
+              onClick={() => setDrawerOpen(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
 
@@ -224,27 +238,7 @@ const Navbar = () => {
               </ListItem>
             ))}
           </List>
-          <Box sx={{ px: 2, mt: 2, display: "flex", flexDirection: "column", gap: 1.5 }}>
-
-            {/* WhatsApp Button */}
-            <Button
-              onClick={() => window.open(`https://wa.me/${whatsappNumber}`, "_blank")}
-              startIcon={<WhatsAppIcon />}
-              sx={{
-                background: "#25D366",
-                color: "#fff",
-                borderRadius: "20px",
-                px: 2.5,
-                fontSize: 13,
-                fontWeight: 600,
-                textTransform: "none",
-                justifyContent: "center",
-                "&:hover": { background: "#1ebe5d" },
-              }}
-            >
-              WhatsApp Us
-            </Button>
-
+          <Box sx={{ px: 2, mt: 1, display: "flex", flexDirection: "column", gap: 1.5 }}>
             {/* Book Now Button */}
             <Button
               onClick={() => { router.push("/bookingSection"); setDrawerOpen(false); }}
