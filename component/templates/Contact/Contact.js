@@ -125,17 +125,17 @@ const Contact = () => {
               width: 32, height: 32, borderRadius: "8px",
               display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
             }}>
-               <img
-              src="https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777532408/LogoMIT_ds7wfz.png"
-              alt="logo"
-              style={{
-                height: 32,
-                cursor: "pointer"
-              }}
-              onClick={() => router.push("/")}
-            />
+              <img
+                src="https://res.cloudinary.com/drjders4g/image/upload/f_auto,q_auto/v1777532408/LogoMIT_ds7wfz.png"
+                alt="logo"
+                style={{
+                  height: 32,
+                  cursor: "pointer"
+                }}
+                onClick={() => router.push("/")}
+              />
             </Box>
-            <Typography sx={{ fontSize: 15, color: "#f0a500", letterSpacing: "0.14em", fontWeight: 700 , fontFamily: "'Playfair Display', serif"}}>
+            <Typography sx={{ fontSize: 15, color: "#f0a500", letterSpacing: "0.14em", fontWeight: 700, fontFamily: "'Playfair Display', serif" }}>
               MUMBAI ISLAND TOURS
             </Typography>
           </Box>
@@ -144,11 +144,11 @@ const Contact = () => {
           <Box sx={{ height: 1, background: "linear-gradient(90deg,transparent,rgba(212,168,71,0.3),transparent)", my: 2.5 }} />
 
           {/* Heading */}
-          <Typography sx={{ fontSize: { xs: 22, sm: 24 }, fontWeight: 700, color: "#fff", mb: 0.6, lineHeight: 1.2 }}>
-            Get in Touch
+          <Typography sx={{ fontSize: { xs: 20, sm: 22 }, fontWeight: 700, color: "#fff", mb: 0.6, lineHeight: 1.2 }}>
+            We'll Be Happy To Help You!
           </Typography>
           <Typography sx={{ fontSize: 13, color: "rgba(232,237,242,0.42)", mb: 3.5, lineHeight: 1.6 }}>
-            We're here to help you explore Mumbai's islands.
+            Contact us for bookings, tour information, or any travel-related queries.
           </Typography>
 
           {/* Contact rows */}
@@ -158,7 +158,7 @@ const Contact = () => {
               title="WhatsApp Support"
               subtitle="+91 70545 XXXXX"
               buttonText="Chat Now"
-              buttonLink="https://wa.me/91"
+              buttonLink="https://wa.me/7054530763"
               iconBg="rgba(29,158,117,0.12)"
               iconColor="#1D9E75"
               btnBg="rgba(29,158,117,0.15)"
@@ -171,7 +171,7 @@ const Contact = () => {
               title="Customer Care"
               subtitle="+91 70545 XXXXX"
               buttonText="Call Now"
-              buttonLink="tel:+9170"
+              buttonLink="tel:+917054530763"
               iconBg="rgba(212,168,71,0.12)"
               iconColor="#D4A847"
               btnBg="rgba(212,168,71,0.15)"
@@ -184,7 +184,7 @@ const Contact = () => {
               title="Email Support"
               subtitle="hello@mumbaiislandtours.in"
               buttonText="Email Us"
-              buttonLink="mailto:hello@mumbaiislandtours.in"
+              buttonLink="mailto:"
               iconBg="rgba(55,138,221,0.12)"
               iconColor="#378ADD"
               btnBg="rgba(55,138,221,0.15)"
