@@ -21,7 +21,7 @@ const Testimonials = () => {
   return (
     <Box sx={{ py: 6, px: { xs: 2, md: 4 }, background: "#fdf6ec" }}>
       <Container maxWidth="lg">
-        <Typography sx={{ fontSize: 11, letterSpacing: 3, color: "#1a8aad", mb: 1 }}>
+        <Typography sx={{ fontSize: 11, letterSpacing: 3, color: "#D99400", mb: 1, fontWeight: 700 }}>
           TESTIMONIALS
         </Typography>
         <Typography sx={{
@@ -62,7 +62,7 @@ const Testimonials = () => {
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
                   <Box sx={{
                     width: 36, height: 36, borderRadius: "50%",
-                    background: "#0a5c7a",
+                    background: "#0D1B2A",
                     display: "flex", alignItems: "center",
                     justifyContent: "center",
                     fontSize: 13, fontWeight: 500, color: "white",

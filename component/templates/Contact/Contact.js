@@ -89,34 +89,46 @@ const Contact = () => {
     <>
       <Navbar />
       <Box sx={{
-        background: "#fdf6ec",
+        background: "linear-gradient(180deg, #fdf6ec 0%, #f7efe0 100%)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         mt: "64px",
-        py: { xs: 3, sm: 5 },
+        minHeight: "calc(100vh - 64px)",
+        py: { xs: 5, sm: 7 },
         px: { xs: 2, sm: 3 },
         position: "relative",
         overflow: "hidden",
       }}>
+        {/* floating gold glows */}
         <Box sx={{
-          position: "absolute",
-          width: 520, height: 520, borderRadius: "50%",
-          top: "50%", left: "50%",
-          transform: "translate(-50%,-50%)",
-          background: "radial-gradient(circle,rgba(212,168,71,0.09) 0%,transparent 70%)",
+          position: "absolute", width: 460, height: 460, borderRadius: "50%",
+          top: "-8%", left: "-6%",
+          background: "radial-gradient(circle, rgba(240,165,0,0.14) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+        <Box sx={{
+          position: "absolute", width: 520, height: 520, borderRadius: "50%",
+          bottom: "-12%", right: "-8%",
+          background: "radial-gradient(circle, rgba(26,138,173,0.06) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+        <Box sx={{
+          position: "absolute", width: 620, height: 620, borderRadius: "50%",
+          top: "50%", left: "50%", transform: "translate(-50%,-50%)",
+          background: "radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 70%)",
           pointerEvents: "none",
         }} />
         {/* ── Card ── */}
         <Box sx={{
           position: "relative", zIndex: 1,
           width: "100%", maxWidth: 480,
-          background: "rgba(13,27,42,0.97)",
-          border: "1px solid rgba(212,168,71,0.22)",
+          background: "radial-gradient(130% 90% at 15% 0%, rgba(240,165,0,0.10) 0%, transparent 45%), linear-gradient(155deg, #17314d 0%, #0d1b2a 58%, #0a1523 100%)",
+          border: "1px solid rgba(240,165,0,0.28)",
           borderRadius: "22px",
           p: { xs: "26px 20px", sm: "34px 30px" },
-          boxShadow: "0 24px 60px rgba(0,0,0,0.18), 0 0 0 1px rgba(212,168,71,0.06)",
+          boxShadow: "0 26px 60px rgba(13,27,42,0.28), 0 0 0 1px rgba(240,165,0,0.06), inset 0 1px 0 rgba(255,255,255,0.06)",
         }}>
 
           {/* Logo row */}
@@ -184,12 +196,12 @@ const Contact = () => {
               title="Email Support"
               subtitle="hello@mumbaiislandtours.in"
               buttonText="Email Us"
-              buttonLink="mailto:"
-              iconBg="rgba(55,138,221,0.12)"
-              iconColor="#378ADD"
-              btnBg="rgba(55,138,221,0.15)"
-              btnBorder="rgba(55,138,221,0.3)"
-              btnColor="#378ADD"
+              buttonLink="mailto:hello@mumbaiislandtours.in"
+              iconBg="rgba(240,165,0,0.12)"
+              iconColor="#F0A500"
+              btnBg="rgba(240,165,0,0.15)"
+              btnBorder="rgba(240,165,0,0.35)"
+              btnColor="#F0A500"
             />
 
           </Box>

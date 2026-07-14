@@ -17,9 +17,9 @@ const reasons = [
 
 const WhyChooseUs = () => {
   return (
-    <Box sx={{ background: "#f0f7fc", py: 6, px: { xs: 2, md: 4 } }}>
+    <Box sx={{ background: "#faf6ee", py: 6, px: { xs: 2, md: 4 } }}>
       <Container maxWidth="lg">
-        <Typography sx={{ fontSize: 11, letterSpacing: 3, color: "#1a8aad", mb: 1 }}>
+        <Typography sx={{ fontSize: 11, letterSpacing: 3, color: "#D99400", mb: 1, fontWeight: 700 }}>
           WHY CHOOSE US
         </Typography>
         <Typography sx={{
@@ -44,10 +44,10 @@ const WhyChooseUs = () => {
               }}>
                 <Box sx={{
                   width: 48, height: 48, borderRadius: "50%",
-                  background: "#e8f4f8",
+                  background: "#faf0d8",
                   display: "flex", alignItems: "center",
                   justifyContent: "center", mx: "auto", mb: 1.5,
-                  color: "#0a5c7a"
+                  color: "#0D1B2A"
                 }}>
                   {item.icon}
                 </Box>

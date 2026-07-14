@@ -23,6 +23,7 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Home", path: "/" },
+    { label: "Tours", path: "/tours" },
     { label: "Contact", path: "/contact" },
     { label: "About", path: "/about" },
   ];
@@ -98,7 +99,7 @@ const Navbar = () => {
                     left: 0,
                     width: isActive(link.path) ? "100%" : "0%",
                     height: "2px",
-                    background: "#c9860a",
+                    background: "#F0A500",
                     borderRadius: "2px",
                     transition: "width 0.25s ease",
                   },
@@ -137,14 +138,14 @@ const Navbar = () => {
             <Button
               onClick={() => router.push("/bookingSection")}
               sx={{
-                background: "#c9860a",
+                background: "#F0A500",
                 color: "#0d1b2a",
                 borderRadius: "20px",
                 px: 2.5,
                 fontSize: 13,
                 fontWeight: 500,
                 textTransform: "none",
-                "&:hover": { background: "#f0a500" },
+                "&:hover": { background: "#FFB92E" },
               }}
             >
               Book Now
@@ -218,8 +219,8 @@ const Navbar = () => {
                   mb: 0.5,
                   px: 2,
                   py: 1,
-                  background: isActive(link.path) ? "rgba(201,134,10,0.15)" : "transparent",
-                  borderLeft: isActive(link.path) ? "3px solid #c9860a" : "3px solid transparent",
+                  background: isActive(link.path) ? "rgba(240,165,0,0.15)" : "transparent",
+                  borderLeft: isActive(link.path) ? "3px solid #F0A500" : "3px solid transparent",
                   transition: "all 0.2s",
                   "&:hover": {
                     background: "rgba(240,165,0,0.1)",
@@ -243,7 +244,7 @@ const Navbar = () => {
             <Button
               onClick={() => { router.push("/bookingSection"); setDrawerOpen(false); }}
               sx={{
-                background: "#c9860a",
+                background: "#F0A500",
                 color: "#0d1b2a",
                 borderRadius: "20px",
                 px: 2.5,
@@ -251,7 +252,7 @@ const Navbar = () => {
                 fontWeight: 700,
                 textTransform: "none",
                 justifyContent: "center",
-                "&:hover": { background: "#f0a500" },
+                "&:hover": { background: "#FFB92E" },
               }}
             >
               Book Now

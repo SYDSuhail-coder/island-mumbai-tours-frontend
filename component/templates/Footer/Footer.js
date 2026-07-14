@@ -1,10 +1,19 @@
+"use client";
 import { Box, Typography, Container } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import { useRouter } from "next/navigation";
 
-const footerLinks = ["About Us", "All Tours", "Group Bookings", "Refund Policy", "Privacy Policy", "Contact"];
+const footerLinks = [
+  { label: "About Us", path: "/about" },
+  { label: "All Tours", path: "/tours" },
+  { label: "Group Bookings", path: "/bookingSection" },
+  { label: "Refund Policy", path: "/refund-policy" },
+  { label: "Privacy Policy", path: "/privacy-policy" },
+  { label: "Contact", path: "/contact" },
+];
 
 const socialLinks = [
   { icon: <InstagramIcon sx={{ fontSize: 18 }} />, url: "https://instagram.com" },
@@ -14,6 +23,8 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const router = useRouter();
+
   return (
     <Box component="footer"
       sx={{ background: "#0d1b2a", color: "#aaa", py: 5, px: 2, textAlign: "center" }}>
@@ -41,11 +52,13 @@ const Footer = () => {
           justifyContent: "center", flexWrap: "wrap", mb: 2
         }}>
           {footerLinks.map((link) => (
-            <Typography key={link} sx={{
-              fontSize: 12, color: "#888", cursor: "pointer",
-              "&:hover": { color: "#f0a500" }, transition: "color 0.2s"
-            }}>
-              {link}
+            <Typography key={link.label}
+              onClick={() => router.push(link.path)}
+              sx={{
+                fontSize: 12, color: "#888", cursor: "pointer",
+                "&:hover": { color: "#f0a500" }, transition: "color 0.2s"
+              }}>
+              {link.label}
             </Typography>
           ))}
         </Box>
@@ -76,7 +89,7 @@ const Footer = () => {
 
         {/* COPYRIGHT */}
         <Typography sx={{ fontSize: 11, color: "#444" }}>
-          © 2025 Mumbai Island Tours. All rights reserved.
+          © {new Date().getFullYear()} Mumbai Island Tours. All rights reserved.
         </Typography>
       </Container>
     </Box>
